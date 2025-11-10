@@ -69,13 +69,9 @@ async def websocket_transcribe(websocket: WebSocket) -> None:
       if audio_bytes is None:
         continue
 
-      print(
-        f"[vosk-service] Received audio chunk of {len(audio_bytes)} bytes from {participant_identity} (room={room_id})"
-      )
+
       if recognizer.AcceptWaveform(audio_bytes):
-        print(
-          f"[vosk-service] Received {len(audio_bytes)} bytes from {participant_identity} (room={room_id})"
-        )
+
         result = json.loads(recognizer.Result())
         text = result.get("text", "")
         if text:
